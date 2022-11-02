@@ -20,8 +20,10 @@ def send_message():
     result = results.first()
     total = result.sum.total_seconds() / 60 / 60 if result.sum else 0
     import asyncio
-    asyncio.run(bot.send_message(744570127,
-                                 f"Davai brat!!!!! ne zdavaisea, o sa se primeasca, mai inca {100 - total:.2f} pina la scopul tau"))
+    loop = asyncio.get_event_loop()
+    coroutine = bot.send_message(744570127,
+                                 f"Davai brat!!!!! ne zdavaisea, o sa se primeasca, mai inca {100 - total:.2f} pina la scopul tau")
+    loop.run_until_complete(coroutine)
 
 
 schedule.every().day.at("05:00").do(send_message)  # timezone utz (chisinau timezone is 08:00)
