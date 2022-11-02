@@ -1,0 +1,54 @@
+version: '3.2'
+
+services:
+  backend-scheduler:
+    container_name: "backend_scheduler"
+    build:
+      dockerfile: Dockerfile
+      context: ./
+    networks:
+      - test
+    command: bash -c '
+      python tasks.py
+      '
+    depends_on:
+      - db
+
+  backend-scheduler-motivation:
+    container_name: "backend_scheduler_motivation"
+    build:
+      dockerfile: Dockerfile
+      context: ./
+    networks:
+      - test
+    command: bash -c '
+      python second_taks.py
+      '
+    depends_on:
+      - db
+
+  db:
+    container_name: "database"
+    image: postgres:12.0-alpine
+    volumes:
+      - point_data:/var/lib/postgresql/data/
+    environment:
+      POSTGRES_USER: 'point'
+      POSTGRES_PASSWORD: 'point'
+      POSTGRES_DB: 'point'
+    networks:
+      - test
+    expose:
+      - 5438
+    ports:
+      - "5438:5438"
+    command:
+      - "postgres"
+      - "-c"
+      - "port=5438"
+
+volumes:
+  point_data:
+
+networks:
+  test:
