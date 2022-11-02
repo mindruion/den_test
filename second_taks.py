@@ -28,6 +28,5 @@ def send_message():
 
 schedule.every().day.at("05:00").do(send_message)  # timezone utz (chisinau timezone is 08:00)
 while True:
-    send_message()
     schedule.run_pending()
     time.sleep(1)
