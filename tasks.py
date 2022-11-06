@@ -98,5 +98,11 @@ def main():
     application.add_handler(CommandHandler("statistics", stats))
     application.run_polling(allowed_updates=Update.ALL_TYPES)
 
+dsadsa
+dsasdas
+dasd
+asd
+asd
+asdas
 
 main()
